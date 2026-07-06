@@ -1,0 +1,77 @@
+version: 2
+
+models:
+  - name: mart_drug_utilization
+    description: >
+      Monthly drug utilization metrics including spend, volume, fill rate,
+      MoM cost change, and cumulative spend. One row per drug per month.
+    columns:
+      - name: drug_id
+        tests: [not_null]
+      - name: service_month
+        tests: [not_null]
+      - name: total_rx
+        description: Total prescription count for the drug in the month
+        tests: [not_null]
+      - name: fill_rate_pct
+        description: Percentage of prescriptions successfully filled
+      - name: cumulative_spend_usd
+        description: Running total of drug spend from start of data
+
+  - name: mart_formulary_analysis
+    description: >
+      Formulary tier analysis combining current formulary snapshot with
+      actual utilization. Includes generic substitution opportunity sizing.
+    columns:
+      - name: drug_id
+        tests:
+          - unique
+          - not_null
+      - name: formulary_tier
+        tests:
+          - not_null
+          - accepted_values:
+              values: [1, 2, 3, 4, 5]
+      - name: fill_rate_pct
+        description: Actual fill rate for this drug based on claims
+      - name: potential_savings_generic_usd
+        description: Estimated plan savings if switched to generic equivalent
+      - name: cost_efficiency_score
+        description: Fill rate relative to unit cost — higher is more efficient
+
+  - name: mart_payer_mix
+    description: >
+      Payer-level spend, utilization, and cost sharing analysis.
+      One row per payer.
+    columns:
+      - name: payer_id
+        tests:
+          - unique
+          - not_null
+      - name: fill_rate_pct
+        description: Fill rate for claims under this payer
+      - name: plan_liability_pct
+        description: Percentage of total drug cost covered by the plan
+      - name: pct_of_total_spend
+        description: This payer's share of overall drug spend
+
+  - name: mart_patient_adherence
+    description: >
+      Patient-level adherence and utilization summary. One row per patient.
+      Includes adherence classification, high utilizer flag, and spend decile.
+    columns:
+      - name: patient_id
+        tests:
+          - unique
+          - not_null
+      - name: fill_rate_pct
+        description: Patient's personal fill rate across all Rx
+      - name: adherence_status
+        description: Adherent / Partially Adherent / Non-Adherent classification
+        tests:
+          - accepted_values:
+              values: ['Adherent', 'Partially Adherent', 'Non-Adherent']
+      - name: spend_decile
+        description: Spend decile (1=highest spenders)
+      - name: is_high_utilizer
+        description: True if patient total spend exceeds $10,000

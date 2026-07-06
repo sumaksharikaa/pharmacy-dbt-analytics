@@ -1,0 +1,20 @@
+formulary_id,drug_id,formulary_tier,tier_name,copay_pct,effective_date,end_date,plan_year,change_reason,is_current
+FORM0001,DRG001,4,Non-Preferred Brand,0.45,2022-01-01,,2022,Initial placement,True
+FORM0002,DRG001,5,Specialty,0.6,2023-01-01,,2023,Contract update,True
+FORM0003,DRG002,4,Non-Preferred Brand,0.45,2022-01-01,,2022,Initial placement,True
+FORM0004,DRG003,5,Specialty,0.6,2022-01-01,,2022,Initial placement,True
+FORM0005,DRG003,5,Specialty,0.6,2023-01-01,,2023,Contract update,True
+FORM0006,DRG004,3,Preferred Brand,0.3,2022-01-01,,2022,Initial placement,True
+FORM0007,DRG004,4,Non-Preferred Brand,0.45,2023-01-01,,2023,Annual review,True
+FORM0008,DRG005,5,Specialty,0.6,2022-01-01,,2022,Initial placement,True
+FORM0009,DRG006,2,Non-Preferred Generic,0.2,2022-01-01,,2022,Initial placement,True
+FORM0010,DRG007,1,Preferred Generic,0.1,2022-01-01,,2022,Initial placement,True
+FORM0011,DRG008,2,Non-Preferred Generic,0.2,2022-01-01,,2022,Initial placement,True
+FORM0012,DRG009,4,Non-Preferred Brand,0.45,2022-01-01,,2022,Initial placement,True
+FORM0013,DRG010,1,Preferred Generic,0.1,2022-01-01,,2022,Initial placement,True
+FORM0014,DRG011,4,Non-Preferred Brand,0.45,2022-01-01,,2022,Initial placement,True
+FORM0015,DRG011,3,Preferred Brand,0.3,2023-01-01,,2023,Generic available,True
+FORM0016,DRG012,3,Preferred Brand,0.3,2022-01-01,,2022,Initial placement,True
+FORM0017,DRG013,2,Non-Preferred Generic,0.2,2022-01-01,,2022,Initial placement,True
+FORM0018,DRG014,5,Specialty,0.6,2022-01-01,,2022,Initial placement,True
+FORM0019,DRG015,1,Preferred Generic,0.1,2022-01-01,,2022,Initial placement,True

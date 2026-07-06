@@ -1,0 +1,16 @@
+drug_id,brand_name,generic_name,manufacturer,therapy_area,dosage_form,strength,unit_cost_usd,requires_prior_auth,is_specialty,ndc,is_active
+DRG001,Humira,Adalimumab,AbbVie,Immunology,Injection,40mg,6500,True,True,93810-214-13,True
+DRG002,Enbrel,Etanercept,Pfizer,Immunology,Injection,50mg,5800,True,True,46048-350-38,True
+DRG003,Stelara,Ustekinumab,Janssen,Dermatology,Injection,45mg,18000,True,True,28289-854-23,True
+DRG004,Ozempic,Semaglutide,Novo Nordisk,Diabetes,Injection,1mg,850,True,False,98696-858-79,True
+DRG005,Keytruda,Pembrolizumab,Merck,Oncology,Injection,200mg,22000,True,True,21395-704-64,True
+DRG006,Lipitor,Atorvastatin,Pfizer,Cardiology,Tablet,20mg,12,False,False,14165-130-21,True
+DRG007,Metformin,Metformin HCl,Generic,Diabetes,Tablet,500mg,4,False,False,38657-338-74,True
+DRG008,Eliquis,Apixaban,BMS/Pfizer,Cardiology,Tablet,5mg,145,False,False,88907-127-81,True
+DRG009,Dupixent,Dupilumab,Sanofi,Dermatology,Injection,300mg,3200,True,True,36062-833-93,True
+DRG010,Lisinopril,Lisinopril,Generic,Cardiology,Tablet,10mg,3,False,False,81426-529-38,True
+DRG011,Tecfidera,Dimethyl Fumarate,Biogen,Neurology,Capsule,240mg,8100,True,False,68878-703-45,True
+DRG012,Januvia,Sitagliptin,Merck,Diabetes,Tablet,100mg,85,False,False,10851-877-30,True
+DRG013,Xarelto,Rivaroxaban,J&J,Cardiology,Tablet,20mg,140,False,False,65392-448-45,True
+DRG014,Revlimid,Lenalidomide,BMS,Oncology,Capsule,25mg,19000,True,True,30379-320-53,True
+DRG015,Omeprazole,Omeprazole,Generic,Gastroenterology,Capsule,20mg,6,False,False,23396-194-58,True

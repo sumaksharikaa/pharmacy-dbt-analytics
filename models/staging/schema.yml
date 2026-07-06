@@ -1,0 +1,172 @@
+version: 2
+
+models:
+  - name: stg_drugs
+    description: >
+      Cleaned and standardized drug master data. One row per drug.
+      Includes derived cost tier and specialty classification.
+    columns:
+      - name: drug_id
+        description: Unique identifier for each drug
+        tests:
+          - unique
+          - not_null
+      - name: brand_name
+        description: Brand name of the drug (uppercased)
+        tests:
+          - not_null
+      - name: therapy_area
+        description: Clinical therapy area the drug belongs to
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['Immunology','Dermatology','Oncology','Diabetes','Cardiology',
+                       'Neurology','Gastroenterology','Hepatology','Infectious Disease']
+      - name: unit_cost_usd
+        description: Cost per unit in USD
+        tests:
+          - not_null
+      - name: formulary_tier
+        description: Current formulary tier (1-5)
+      - name: is_specialty
+        description: Whether this is a specialty drug
+        tests:
+          - not_null
+          - accepted_values:
+              values: [true, false]
+      - name: drug_category
+        description: Specialty vs Non-Specialty classification
+        tests:
+          - accepted_values:
+              values: ['Specialty', 'Non-Specialty']
+
+  - name: stg_formulary
+    description: >
+      Cleaned formulary tier history. Multiple rows per drug
+      when tier changes occur across plan years.
+    columns:
+      - name: formulary_id
+        description: Unique formulary record identifier
+        tests:
+          - unique
+          - not_null
+      - name: drug_id
+        description: FK to stg_drugs
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_drugs')
+              field: drug_id
+      - name: formulary_tier
+        description: Tier 1-5 assignment
+        tests:
+          - not_null
+          - accepted_values:
+              values: [1, 2, 3, 4, 5]
+      - name: copay_pct
+        description: Member copay as a percentage of total cost
+        tests:
+          - not_null
+      - name: plan_year
+        description: Plan year for this formulary record
+        tests:
+          - not_null
+
+  - name: stg_payers
+    description: Cleaned payer master data. One row per payer.
+    columns:
+      - name: payer_id
+        description: Unique payer identifier
+        tests:
+          - unique
+          - not_null
+      - name: payer_name
+        description: Name of the insurance payer
+        tests:
+          - not_null
+      - name: payer_type
+        description: Commercial or Government
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['Commercial', 'Government']
+
+  - name: stg_patients
+    description: >
+      Cleaned patient master data. One row per patient.
+      Includes derived age bands and Medicare flag.
+    columns:
+      - name: patient_id
+        description: Unique patient identifier
+        tests:
+          - unique
+          - not_null
+      - name: age
+        description: Patient age in years
+        tests:
+          - not_null
+      - name: gender
+        description: Patient gender
+        tests:
+          - accepted_values:
+              values: ['M', 'F', 'OTHER']
+      - name: insurance_type
+        description: Type of insurance coverage
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['Commercial', 'Medicare', 'Medicaid']
+      - name: payer_id
+        description: FK to stg_payers
+        tests:
+          - relationships:
+              to: ref('stg_payers')
+              field: payer_id
+
+  - name: stg_prescriptions
+    description: >
+      Cleaned prescription claims. One row per Rx.
+      Includes derived date parts, fill flags, and plan liability.
+    columns:
+      - name: rx_id
+        description: Unique prescription identifier
+        tests:
+          - unique
+          - not_null
+      - name: patient_id
+        description: FK to stg_patients
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_patients')
+              field: patient_id
+      - name: drug_id
+        description: FK to stg_drugs
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_drugs')
+              field: drug_id
+      - name: payer_id
+        description: FK to stg_payers
+        tests:
+          - not_null
+      - name: formulary_tier
+        description: Formulary tier at time of fill
+        tests:
+          - accepted_values:
+              values: [1, 2, 3, 4, 5]
+      - name: days_supply
+        description: Days supply dispensed
+        tests:
+          - accepted_values:
+              values: [30, 60, 90]
+      - name: pharmacy_type
+        description: Type of dispensing pharmacy
+        tests:
+          - accepted_values:
+              values: ['Retail', 'Mail Order', 'Specialty']
+      - name: is_filled
+        description: Whether the Rx was successfully dispensed
+        tests:
+          - not_null

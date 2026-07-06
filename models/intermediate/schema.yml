@@ -1,0 +1,46 @@
+version: 2
+
+models:
+  - name: int_prescription_enriched
+    description: >
+      Enriched prescription fact table joining Rx claims with drug master,
+      patient demographics, and payer information. One row per prescription.
+    columns:
+      - name: rx_id
+        description: Unique prescription identifier
+        tests:
+          - unique
+          - not_null
+      - name: drug_id
+        tests:
+          - not_null
+      - name: patient_id
+        tests:
+          - not_null
+      - name: total_cost_usd
+        description: Total cost of the prescription in USD
+        tests:
+          - not_null
+      - name: plan_liability_pct
+        description: Percentage of cost covered by the plan
+
+  - name: int_formulary_current
+    description: >
+      Current formulary snapshot — one row per drug showing
+      the most recent formulary tier, copay, and estimated costs.
+    columns:
+      - name: drug_id
+        description: Unique drug identifier
+        tests:
+          - unique
+          - not_null
+      - name: formulary_tier
+        description: Current formulary tier (1-5)
+        tests:
+          - not_null
+          - accepted_values:
+              values: [1, 2, 3, 4, 5]
+      - name: est_member_cost_30d
+        description: Estimated member out-of-pocket cost for 30-day supply
+        tests:
+          - not_null
