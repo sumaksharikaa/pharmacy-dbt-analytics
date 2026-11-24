@@ -168,4 +168,4 @@ dbt run --select mart_drug_utilization
 
 ---
 
-*Built by [Sumaksharika Nainavarapu](https://sumaksharika.com) · B.S. Pharmacy · M.S. Health Informatics & Analytics*
+*Built by [Sumaksharika Nainavarapu](https://github.com/sumaksharikaa)*
